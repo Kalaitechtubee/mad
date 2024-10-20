@@ -1,0 +1,68 @@
+Activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+   <ImageView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/image"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+package com.example.fourthexercise;
+
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
+import android.widget.ImageView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        Bitmap bitmap = Bitmap.createBitmap(720,1280,Bitmap.Config.ARGB_8888);
+        ImageView i = (ImageView) findViewById(R.id.image);
+        i.setBackgroundDrawable(new BitmapDrawable(bitmap));
+        Canvas canvas=new Canvas(bitmap);
+        Paint paint=new Paint();
+        paint.setColor(Color.GRAY);
+        paint.setTextSize(50);
+        canvas.drawCircle(350, 350, 250, paint);
+        paint.setColor(Color.RED);
+        canvas.drawRect(300, 200, 200, 300, paint);
+        canvas.drawRect(500, 300, 400, 200, paint);
+        paint.setColor(Color.BLUE);
+        canvas.drawRect(325,300,375,420,paint);
+        paint.setColor(Color.GREEN);
+        canvas.drawCircle(350, 500, 50, paint);
+        paint.setColor(Color.BLACK);
+        canvas.drawCircle(275, 275, 30, paint);
+        canvas.drawCircle(425, 275, 30, paint);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+    }
+}
+
